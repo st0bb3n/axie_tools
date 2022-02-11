@@ -1,6 +1,8 @@
 from requests import get
 from datetime import datetime
+from pycoingecko import CoinGeckoAPI
 
+cg = CoinGeckoAPI()
 API_URL = "https://game-api.axie.technology/api/v1/0x"
 
 def generate_url(ronin):
@@ -10,12 +12,13 @@ def generate_url(ronin):
     else:
         dead = "https://game-api.axie.technology/api/v1/0x0"
         return dead
-    
+
 while True:
     address = str(input("Whats the ronin address?: "))
     data_url = generate_url(address)
     response = get(data_url)
-    print("API Status: ", response.status_code)
+    ("------API------")
+    print("Status: ", response.status_code)
     data_dict = response.json()
 
     if data_dict != {}:
@@ -30,6 +33,11 @@ while True:
         unix2 = data_dict["last_claim"]
         print("Last Claim: ", (datetime.utcfromtimestamp(unix2).strftime('%Y-%m-%d %H:%M:%S')))
         print("Next Claim: ", (datetime.utcfromtimestamp(unix).strftime('%Y-%m-%d %H:%M:%S')))
+        print("------CoinGecko Prices------")
+        prices = cg.get_price(ids='smooth-love-potion, axie-infinity', vs_currencies='php')
+        print("Current SLP Price: ", prices["smooth-love-potion"])
+        print("Current AXS Price: ", prices["axie-infinity"])
+        print("------------------")
 
     else:
         print("Invalid Ronin Address")
