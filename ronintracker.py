@@ -34,6 +34,8 @@ while True:
         print("Last Claim: ", (datetime.utcfromtimestamp(unix2).strftime('%Y-%m-%d %H:%M:%S')))
         print("Next Claim: ", (datetime.utcfromtimestamp(unix).strftime('%Y-%m-%d %H:%M:%S')))
         print("------CoinGecko Prices------")
+        now = datetime.now()
+        print("As of ", now)
         prices = cg.get_price(ids='smooth-love-potion, axie-infinity', vs_currencies='php')
         print("Current SLP Price: ", prices["smooth-love-potion"])
         print("Current AXS Price: ", prices["axie-infinity"])
